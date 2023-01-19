@@ -6,11 +6,16 @@ import {userContext} from '../app'
 
 const profile = (props) => {
   // const {_id, user_id} = props.user
-  const [user, userState] = useContext(userContext)
+  const [user, userState, match, changeMatch] = useContext(userContext)
+
+  function handleClick(e) {
+    match === 'Match' ? changeMatch('Movies') : changeMatch('Match')
+  }
   // console.log(user.user_id)
   return (
-    <div>
+    <div id='profile'>
       <p>{user.user_id}</p>
+      <button onClick={handleClick}>{match}</button>
     </div>
   )
 }

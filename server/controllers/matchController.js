@@ -4,13 +4,23 @@ const User = require('../model/userModel')
 
 module.exports = {
 
+
+  // needs refactory to make it more inplicit and functional it is hard coded in inefficently
   getMatch: async (req, res, next) => {
     const {user_id} = req.query
-    const response = await Match.find({user1_id:user_id})
-    const user = await User.findOneAndUpdate({user_id:user_id}, {Matched: [response]})
+    // console.log(req.query)
+    const response = await Match.find({user1_id: user_id})
+    const match_id = {}
+    for (let match of response) {
+      !match_id[match.user2_id] ? match_id[match.user2_id] = [match._id]: match_id[match.user2_id].push(match._id)
+    }
+    // console.log(match_id)
+    const user = await User.findOneAndUpdate({user_id:user_id}, {matched: Object.keys(match_id)},{new:true, upsert: true})
+
+    res.locals.user = user;
     console.log(user)
-    res.locals.user = user
     res.locals.user_ids = response;
+    return next()
   },
   
   findMatch: async (req,res, next) => {

@@ -41,7 +41,7 @@ router.post('/login', async (req,res, next)=> {
 
 // sends the match screen data to the client
 router.get('/like', getMatch, (req, res)=> {
-  res.json(res.locals);
+  res.json(res.locals.user.matched);
 })
 
 
@@ -52,6 +52,8 @@ router.patch('/like', saveLikedMovie, (req, res) => {
 
 //
 router.patch('/match/find', findMatch, saveMatch, (req,res)=>{
+  console.log('rranarnanrnrarn')
+
   res.json(res.locals);
 })
 

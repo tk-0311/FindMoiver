@@ -29,7 +29,7 @@ function CardBox(props) {
 
   //save the list of the move fetched from the API
   
-function nextCard(e) {
+async function nextCard(e) {
 
       const like = e.target.innerText === 'like'
       const movie_id = e.target.className;
@@ -51,6 +51,13 @@ function nextCard(e) {
         console.log(data)
       }).catch(err=> {
         console.log(err)
+      })
+      await fetch('/user/match/find', {
+        method:'PATCH', 
+        headers:{
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
       })
       useCount(count+1)
       

@@ -8,12 +8,13 @@ import Match from './match'
 export const userContext = createContext()
 function App(props) {
   const [user, userState] = useState(null)
+  const [match, changeMatch] = useState('Match')
+  let render
   return (
     <div>
-      <userContext.Provider value={[user,userState]}>
+      <userContext.Provider value={[user, userState, match, changeMatch]}>
       <LoginBox />
-      <CardBox />
-      <Match />
+      {match !== 'Match' ?  <Match key="what" />:<CardBox key="box"/>}
       </userContext.Provider>
     </div>
   )
