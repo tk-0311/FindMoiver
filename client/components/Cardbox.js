@@ -1,67 +1,44 @@
 import React,{ useEffect, useState , useContext} from 'react'
 import Card from './card'
 import { userContext } from './app'
-
+import { nextCard } from '../service/cardfetch'
 
 function CardBox(props) {
 
-  // const card =(list, changeList, count, useCount) =>{
-  //   const cards = [];
-  
-  //   function nextCard(e) {
+  const next = nextCard(user)
+// async function nextCard(e) {
+
+//       const like = e.target.innerText === 'like'
+//       const movie_id = e.target.className;
+//       console.log(movie_id);
+//       const data = {
+//         like: like,
+//         user_id: user.user_id,
+//         movie_id: movie_id
+//       }
+//       console.log(like)
+//       fetch('/user/like', {
+//         method:'PATCH', 
+//         headers:{
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//       }).then(res=>res.json())
+//       .then(data=>{
+//         console.log(data)
+//       }).catch(err=> {
+//         console.log(err)
+//       })
+//       await fetch('/user/match/find', {
+//         method:'PATCH', 
+//         headers:{
+//           'Content-type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//       })
+//       useCount(count+1)
       
-  //     const choice = e.target.innerText
-  //     let num = count +1
-  //     console.log(count, num)
-
-  //     useCount(num);
-  //     console.log(choice, count)
-  
-  //   } 
-  
-  //   for (let movie of list.results) {
-  //     cards.push(<Card key={`Card_id_${movie.id}`} nextCard={nextCard} movie={movie} />)
-  //   }
-  //   changeList(cards)
-  //   return cards
-  // }
-
-
-  //save the list of the move fetched from the API
-  
-async function nextCard(e) {
-
-      const like = e.target.innerText === 'like'
-      const movie_id = e.target.className;
-      console.log(movie_id);
-      const data = {
-        like: like,
-        user_id: user.user_id,
-        movie_id: movie_id
-      }
-      console.log(like)
-      fetch('/user/like', {
-        method:'PATCH', 
-        headers:{
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(res=>res.json())
-      .then(data=>{
-        console.log(data)
-      }).catch(err=> {
-        console.log(err)
-      })
-      await fetch('/user/match/find', {
-        method:'PATCH', 
-        headers:{
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      useCount(count+1)
-      
-  }
+//   }
 
   // useContext data
   const [user] = useContext(userContext)
@@ -89,7 +66,7 @@ async function nextCard(e) {
 
   return (
     <div id='cardBox'>
-      {movie ? <Card key={`Card_id_${movie.id}`} nextCard={nextCard} movie={movie} /> : loading}
+      {movie ? <Card key={`Card_id_${movie.id}`} nextCard={next} movie={movie} /> : loading}
     </div>
   )
 }
